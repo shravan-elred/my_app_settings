@@ -1,56 +1,21 @@
 group 'com.spencerccf.app_settings'
 version '1.0-SNAPSHOT'
 
-buildscript {
-    ext {
-        kotlin_version = '1.7.20'
-        gradle_version = '7.3.0'
-    }
-
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath "com.android.tools.build:gradle:$gradle_version"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
 allprojects {
     repositories {
         google()
-        mavenCentral()
+        jcenter()
     }
 }
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-
-android {
-    compileSdkVersion 33
-
-    namespace 'com.spencerccf.app_settings'
-    
-    compileOptions {
-        sourceCompatibility kotlin_version
-        targetCompatibility kotlin_version
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
-
-    defaultConfig {
-        minSdkVersion 16
-    }
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
 }
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
 }
