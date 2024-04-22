@@ -103,6 +103,7 @@ class AppSettingsPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       "vpn" -> openVpnSettings(result, asAnotherTask)
       "wifi" -> openSettings(Settings.ACTION_WIFI_SETTINGS, result, asAnotherTask)
       "wireless" -> openSettings(Settings.ACTION_WIRELESS_SETTINGS, result, asAnotherTask)
+      "contact" -> openSettings("android.settings.CONTACTS_SETTINGS", result, asAnotherTask)
       else -> result.notImplemented()
     }
   }
